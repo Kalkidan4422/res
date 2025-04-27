@@ -1,0 +1,44 @@
+┌───────────────────────┐       ┌───────────────────────┐
+│  «enumeration»        │       │       Incident        │
+│  IncidentSeverity     │       ├───────────────────────┤
+├───────────────────────┤       │ - type: String        │
+│ Minor                 │       │ - location: String    │
+│ Moderate              │◆─────▶│ - reportedTime:       │
+│ Severe                │       │   DateTime            │
+└───────────────────────┘       │ - severity:           │
+                                │   IncidentSeverity    │
+                                └───────────────────────┘
+                                        ▲
+                                        △
+                                ┌───────────────────────┐
+                                │     «abstract»        │
+                                │    EmergencyUnit      │
+                                ├───────────────────────┤
+                                │ # name: String        │
+                                │ # speed: int          │
+                                │ - isAvailable: bool   │
+                                │ - successfulResponses:│
+                                │   int                 │
+                                └───────────────────────┘
+                                        △
+               ┌────────────────────────┼─────────────────────────┐
+               │                        │                         │
+┌───────────────────────┐  ┌───────────────────────┐  ┌───────────────────────┐
+│       Police          │  │     Firefighter       │  │      Ambulance        │
+├───────────────────────┤  ├───────────────────────┤  ├───────────────────────┤
+│ - officersCount: int  │  │ - hasLadderTruck: bool│  │ - isMobileICU: bool   │
+└───────────────────────┘  └───────────────────────┘  └───────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────┐
+│               EmergencyDispatchSystem                                 │
+├───────────────────────────────────────────────────────────────────────┤
+│ - units: List<EmergencyUnit>                                         │
+│ - score: int                                                        │
+│ - totalIncidents: int                                               │
+├───────────────────────────────────────────────────────────────────────┤
+│ + configureSystem()                                                 │
+│ + runSimulation()                                                   │
+│ - addUnits()                                                        │
+│ - generateIncident(): Incident                                      │
+│ - findResponder(): EmergencyUnit                                    │
+└───────────────────────────────────────────────────────────────────────┘
